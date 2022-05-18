@@ -8,15 +8,24 @@ import {
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import * as UsersActions from '../action/users.actions';
+import { StaticReflector } from '@angular/compiler';
 
 export interface UserState {
-  userData: User | null [];
+  users: UserData;
 
   // userData:any;
 }
+export interface UserData{
+  data: User[];
+  type:string;
+
+}
 
 const initialUserState: UserState  = {
-  userData: [],
+  users: {
+    data:[],
+    type:''
+  },
 };
 
 export interface AppState {
@@ -30,13 +39,17 @@ export const userdReducer = createReducer(
   //     return state;
   // })
 
-  on(UsersActions.LoadUsersSuccess, (state, users) => ({
-    userData: users.data,
+  // on(UsersActions.LoadUsersSuccess, (state, users) => ({
+  //   users: users.data,
+  // })),
+
+  on(UsersActions.LoadUsersSuccess, (state, usersData) => ({
+    users: usersData,
   })),
-//   on(UsersActions.AddUsersSuccess, (state, action) => {
-// state.userData.push(action);
-//     return state;
-//   })
+//   on(UsersActions.AddUsersSuccess, (state, action) => ({
+// ...state,
+// users:state.users.concat(action.data)
+//   }))
 
 );
 

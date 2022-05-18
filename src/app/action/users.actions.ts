@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { User } from '../models/user';
 
 export const loadUsers = createAction(
   '[Users] USER LOAD USERS',
@@ -6,7 +7,7 @@ export const loadUsers = createAction(
 
 export const LoadUsersSuccess = createAction(
   '[Users] USER LOAD USERS Success',
-  props<{ data: any }>()
+  props<{ data: User[] }>()
 );
 
 export const LoadUsersFailure = createAction(
@@ -19,8 +20,8 @@ export const AddUsers = createAction(
 );
 
 export const AddUsersSuccess = createAction(
-  '[Users] USER LOAD USERS Success',
-  props<{ data: any }>()
+  '[Users] USER ADD USERS Success',
+  props<{ data: User }>()
 );
 
 export const AddUsersFailure = createAction(
