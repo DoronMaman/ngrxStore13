@@ -9,10 +9,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './effects/user.effects';
+import { TreejsComponent } from './treejs/treejs.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TreejsComponent
   ],
   imports: [
     BrowserModule,

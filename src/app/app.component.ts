@@ -1,8 +1,10 @@
-import { AppState } from './reducers/index';
+import { AppState, UserData } from './reducers/index';
+import * as fromRoot from './reducers/index';
+
 import { UsersService } from './users.service';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AddUsersSuccess, loadUsers, LoadUsersSuccess } from './action/users.actions';
+import { AddUsers, AddUsersSuccess, loadUsers, LoadUsersSuccess } from './action/users.actions';
 import { User } from './models/user';
 
 
@@ -15,6 +17,7 @@ import { User } from './models/user';
 export class AppComponent {
   title = 'ngrxStore';
   users: any | undefined;
+  public usersData:any;
   constructor(private usersService:UsersService,private store: Store<AppState>){}
 
 // showConfig() {
@@ -27,15 +30,20 @@ export class AppComponent {
 // }
 
 AddUser(){
-  let data:User= {
-    id:'1',
-    name:'doron',
-    gender:'male',
-    email:'doron.gmail.com'
-  }
-  this.store.dispatch(AddUsersSuccess({ data }))
+
+  this.store.dispatch(AddUsers())
 }
 showConfig(){
   this.store.dispatch(loadUsers());
+
 }
+ShowAllUsers(){
+  this.usersData=this.store.select(fromRoot.selectUsersShow);
+
+  // const users=this.store.pipe(selectUsersShow())
+  // this.store.select(fromRoot.selectUserById('61cd6070f90197857a5faf6f')).subscribe(user=>console.log('userBy id ',user));
+
+
+}
+
 }

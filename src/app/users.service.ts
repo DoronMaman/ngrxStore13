@@ -8,9 +8,15 @@ import { HttpClient } from '@angular/common/http';
 export class UsersService {
 
   constructor(private http: HttpClient) { }
+  usersUrl = 'assets/users.json';
   userUrl = 'assets/user.json';
 
+
 getConfig() {
+  return this.http.get<any>(this.usersUrl);
+}
+addUser(){
   return this.http.get<any>(this.userUrl);
+
 }
 }

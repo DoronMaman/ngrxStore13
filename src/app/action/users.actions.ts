@@ -3,6 +3,7 @@ import { User } from '../models/user';
 
 export const loadUsers = createAction(
   '[Users] USER LOAD USERS',
+
 );
 
 export const LoadUsersSuccess = createAction(
@@ -16,7 +17,7 @@ export const LoadUsersFailure = createAction(
 );
 
 export const AddUsers = createAction(
-  '[Users] USER LOAD USERS',
+  '[Users] USER Add USERS',
 );
 
 export const AddUsersSuccess = createAction(

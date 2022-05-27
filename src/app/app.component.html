@@ -1,4 +1,9 @@
 <button (click)="showConfig()">Show Data</button>
 <button (click)="AddUser()">Add User</button>
+<button (click)="ShowAllUsers()">Show User</button>
+
+<div *ngFor="let user of usersData|async">
+  {{user.name}}
+</div>
 
 

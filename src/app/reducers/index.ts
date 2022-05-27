@@ -1,77 +1,79 @@
+// import { UserData } from './index';
 import {
   ActionReducerMap,
   MetaReducer,
   Action,
   on,
   createReducer,
+  createSelector,
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import * as UsersActions from '../action/users.actions';
 import { StaticReflector } from '@angular/compiler';
 
-export interface UserState {
-  users: UserData;
+// export interface UserState {
+//   users: UserData;
 
-  // userData:any;
-}
-export interface UserData{
+//   // userData:any;
+// }
+export interface UserData {
   data: User[];
-  type:string;
-
 }
 
-const initialUserState: UserState  = {
-  users: {
-    data:[],
-    type:''
-  },
+const initialUserState: UserData = {
+
+    data:[{
+      id:'1',
+      name:'didi',
+      gender:'male',
+      email:'d@gmail.com'
+    }]
+
 };
 
 export interface AppState {
-  users: UserState;
+  users: UserData;
 }
 
 export const userdReducer = createReducer(
   initialUserState,
-  //   on(UsersActions.LoadUsersSuccess, (state, action) => {
-  //     console.log("users",action)
-  //     return state;
-  // })
 
-  // on(UsersActions.LoadUsersSuccess, (state, users) => ({
-  //   users: users.data,
-  // })),
 
-  on(UsersActions.LoadUsersSuccess, (state, usersData) => ({
-    users: usersData,
-  })),
-//   on(UsersActions.AddUsersSuccess, (state, action) => ({
-// ...state,
-// users:state.users.concat(action.data)
-//   }))
+  on(UsersActions.LoadUsersSuccess, (state, action) => {
+    console.log(state);
+    return action;
+  }),
+
+  on(UsersActions.AddUsersSuccess, (state, action) => {
+    console.log("ddd",state);
+
+    return {
+      ...state,
+      data:state.data.concat(action.data)
+    };
+  }),
+
+
 
 );
 
-// export function userReducer(state: UserState = initialWeatherState, action: WeatherAction): UserState {
-//   switch (action.type) {
-//     case WeatherActionTypes.LoadWeather:
-//       return {
-//         weatherData: action.payload.weatherData
-//       };
 
-//     default:
-//       return state;
-//   }
-// }
 
 export const reducers: ActionReducerMap<AppState> = {
   users: userdReducer,
 };
 
-// export const selectUser = (state: AppState) => state.weather.weatherData;
+export const selectUsers = (state: AppState) => state.users.data;
 
-// export const selectError = (state: AppState) => state.location.error;
+export const selectUsersShow = createSelector(
+  selectUsers,
+  (state: User[]) => state
+);
+export const selectUserById = (user_id:string) => createSelector(
+  selectUsers,
+  users => users.filter((user:any) => user._id == user_id)
+);
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? []
