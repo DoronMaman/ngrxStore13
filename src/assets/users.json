@@ -1,6 +1,6 @@
 [
   {
-    "_id": "61cd6070efd21376cf9d1d58",
+    "id": "61cd6070efd21376cf9d1d58",
     "picture": "http://placehold.it/32x32",
     "age": 30,
     "eyeColor": "brown",
@@ -15,7 +15,7 @@
     "longitude": 151.533095
   },
   {
-    "_id": "61cd6070af9302fc95c89305",
+    "id": "61cd6070af9302fc95c89305",
     "picture": "http://placehold.it/32x32",
     "age": 34,
     "eyeColor": "green",
@@ -30,7 +30,7 @@
     "longitude": 90.236296
   },
   {
-    "_id": "61cd607031cc269ef0c55d76",
+    "id": "61cd607031cc269ef0c55d76",
     "picture": "http://placehold.it/32x32",
     "age": 25,
     "eyeColor": "green",
@@ -45,7 +45,7 @@
     "longitude": 146.225932
   },
   {
-    "_id": "61cd6070dde1b3f3789777f7",
+    "id": "61cd6070dde1b3f3789777f7",
     "picture": "http://placehold.it/32x32",
     "age": 38,
     "eyeColor": "brown",
@@ -60,7 +60,7 @@
     "longitude": -170.143481
   },
   {
-    "_id": "61cd607092168e80ab2cbc26",
+    "id": "61cd607092168e80ab2cbc26",
     "picture": "http://placehold.it/32x32",
     "age": 24,
     "eyeColor": "green",
@@ -75,7 +75,7 @@
     "longitude": -25.667715
   },
   {
-    "_id": "61cd6070a8a30303b4546b9d",
+    "id": "61cd6070a8a30303b4546b9d",
     "picture": "http://placehold.it/32x32",
     "age": 31,
     "eyeColor": "green",
@@ -90,7 +90,7 @@
     "longitude": -115.935919
   },
   {
-    "_id": "61cd6070f90197857a5faf6f",
+    "id": "61cd6070f90197857a5faf6f",
     "picture": "http://placehold.it/32x32",
     "age": 34,
     "eyeColor": "blue",

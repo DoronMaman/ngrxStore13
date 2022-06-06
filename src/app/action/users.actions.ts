@@ -10,6 +10,7 @@ export const LoadUsersSuccess = createAction(
   '[Users] USER LOAD USERS Success',
   props<{ data: User[] }>()
 );
+// export const LoadUsersSuccess = createAction('[Users] USER LOAD USERS Success', props<{ users: User[] }>());
 
 export const LoadUsersFailure = createAction(
   '[Users] USER LOAD USERS Failure',

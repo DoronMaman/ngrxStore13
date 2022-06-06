@@ -11,69 +11,102 @@ import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import * as UsersActions from '../action/users.actions';
 import { StaticReflector } from '@angular/compiler';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-// export interface UserState {
-//   users: UserData;
 
-//   // userData:any;
-// }
-export interface UserData {
-  data: User[];
+
+export interface State extends EntityState<User> {
+  // additional entities state properties
+  selectedUserId: string | null;
 }
+export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-const initialUserState: UserData = {
 
-    data:[{
-      id:'1',
-      name:'didi',
-      gender:'male',
-      email:'d@gmail.com'
-    }]
-
-};
+export const initialState: State = adapter.getInitialState({
+  // additional entity state properties
+  selectedUserId: null,
+});
 
 export interface AppState {
-  users: UserData;
+  users: State;
 }
 
 export const userdReducer = createReducer(
-  initialUserState,
-
-
-  on(UsersActions.LoadUsersSuccess, (state, action) => {
-    console.log(state);
-    return action;
+  initialState,
+  on(UsersActions.LoadUsersSuccess, (state, { data }) => {
+    return adapter.addMany(data, { ...state, selectedUserId: null });
   }),
-
-  on(UsersActions.AddUsersSuccess, (state, action) => {
-    console.log("ddd",state);
-
-    return {
-      ...state,
-      data:state.data.concat(action.data)
-    };
+  on(UsersActions.AddUsersSuccess, (state, { data }) => {
+    return adapter.addOne(data, state)
   }),
+  // on(UsersActions.LoadUsersSuccess, (state, action) => {
+  //   console.log(state);
+  //   return action;
+  // }),
+
+  // on(UsersActions.AddUsersSuccess, (state, action) => {
+  //   console.log("ddd",state);
+
+  //   return {
+  //     ...state,
+  //     data:state.data.concat(action.data)
+  //   };
+  // }),
 
 
 
 );
 
+export const getSelectedUserId = (state: State) => state.selectedUserId;
 
+// get the selectors
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = adapter.getSelectors();
+
+// select the array of user ids
+export const selectUserIds = selectIds;
+
+// select the dictionary of user entities
+export const selectUserEntities = selectEntities;
+
+// select the array of users
+export const selectAllUsers = selectAll;
+
+// select the total user count
+export const selectUserTotal = selectTotal;
 
 export const reducers: ActionReducerMap<AppState> = {
   users: userdReducer,
 };
 
-export const selectUsers = (state: AppState) => state.users.data;
+export const selectUsers = (state: AppState) => state.users;
 
-export const selectUsersShow = createSelector(
+export const selectAllUserss = createSelector(
   selectUsers,
-  (state: User[]) => state
+  selectAllUsers
 );
-export const selectUserById = (user_id:string) => createSelector(
+
+export const selectCurrentUserId = createSelector(
   selectUsers,
-  users => users.filter((user:any) => user._id == user_id)
+  getSelectedUserId
 );
+export const selectUserEntitiess = createSelector(
+  selectUsers,
+  selectUserEntities
+);
+export const selectCurrentUser = createSelector(
+  selectUserEntitiess,
+  selectCurrentUserId,
+  (userEntities, userId) => userId && userEntities[userId]
+);
+// export const selectUserById = (user_id:string) => createSelector(
+//   selectUsers,
+//   users => users.filter((user:any) => user._id == user_id)
+// );
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? []

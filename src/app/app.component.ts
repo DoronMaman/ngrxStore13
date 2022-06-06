@@ -1,4 +1,4 @@
-import { AppState, UserData } from './reducers/index';
+import { AppState } from './reducers/index';
 import * as fromRoot from './reducers/index';
 
 import { UsersService } from './users.service';
@@ -34,14 +34,15 @@ AddUser(){
   this.store.dispatch(AddUsers())
 }
 showConfig(){
+
   this.store.dispatch(loadUsers());
 
 }
 ShowAllUsers(){
-  this.usersData=this.store.select(fromRoot.selectUsersShow);
+  this.store.select(fromRoot.selectAllUserss).subscribe(users=>console.log("users",users))
 
   // const users=this.store.pipe(selectUsersShow())
-  // this.store.select(fromRoot.selectUserById('61cd6070f90197857a5faf6f')).subscribe(user=>console.log('userBy id ',user));
+  this.store.select(fromRoot.selectCurrentUser).subscribe(user=>console.log('userBy id ',user));
 
 
 }
